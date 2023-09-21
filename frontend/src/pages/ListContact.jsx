@@ -6,16 +6,20 @@ import axios from 'axios'
 const ListContact = () => {
   const [users, setUsers] = useState()
 
-  const fetchUser =async () => {
-    const {data} = await axios.get("http://localhost:5000/api/userlists")
-    console.log(data)
-   setUsers(data)
-  }
+  // const fetchUser =async () => {
+  //   const { data } = await axios.get("http://localhost:5000/api/userlists", {
+  //     headers: {
+  //       Authorization:`Bearer ${}`
+  //     }
+  //   })
+  //   console.log(data)
+  //  setUsers(data)
+  // }
   
  
-  useEffect(() => {
-    fetchUser();
-  },[])
+  // useEffect(() => {
+  //   fetchUser();
+  // },[])
   return (
     <div>
       <MainScreen title={"welcome back sammed"}>

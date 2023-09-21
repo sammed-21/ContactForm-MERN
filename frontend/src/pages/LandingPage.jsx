@@ -1,6 +1,12 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Link } from "react-router-dom";
 const LandingPage = () => {
+      useEffect(() => {
+        const userInfo = localStorage.getItem('userInfo')
+        if (userInfo) {
+           
+        }
+    },[history])
   return (
     <div className="flex min-h-[80vh]">
       {/* Left side with background image */}

@@ -2,8 +2,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import CreateUser from "./pages/CreateUser";
 import LandingPage from "./pages/LandingPage";
-
-import * as ReactDOM from "react-dom/client";
+ 
 import "./App.css";
 import ListContact from "./pages/ListContact";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
