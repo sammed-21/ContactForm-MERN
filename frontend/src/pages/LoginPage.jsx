@@ -20,8 +20,7 @@ const LoginPage = ({ history }) => {
   
  useEffect(() => {
    if (userInfo) {
-      console.log(userInfo.name)
-      navigate('/contacts')
+       navigate('/contacts')
     }
   }, [navigate, userInfo])
 

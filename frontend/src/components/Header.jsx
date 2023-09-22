@@ -1,20 +1,19 @@
 import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link,useNavigate ,NavLink} from "react-router-dom";
-import { loginUser } from "../features/auth/authActions";
+import { logout } from "../features/auth/authSlice";
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);
 
-   const { userInfo, userToken } = useSelector((state) => state.auth)
+   const { userInfo } = useSelector((state) => state.auth)
  const dispatch =useDispatch()
   // automatically authenticate user if token is found
   const navigate= useNavigate()
   const handleLogout = () => {
-     console.log('Logout button clicked'); 
-    dispatch(loginUser())
-    handleDropdown()
-    toggleMenu()
+     
+    dispatch(logout())
+  
     navigate('/')
   }
   // Function to toggle the navigation menu
@@ -22,7 +21,7 @@ const Header = () => {
     setOpen(!open);
   };
   const handleDropdown = () => {
-    console.log("clickedk");
+ 
     setDropDown((prev) => !prev);
   };
 
@@ -142,43 +141,32 @@ const Header = () => {
               placeholder="Search..."
             />
           </div>
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-900 md:dark:bg-gray-900 dark:border-gray-900">
-            <li>
+          <ul className="flex flex-col justify-center items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-900 md:dark:bg-gray-900 dark:border-gray-900">
+            {userInfo && 
+              <li>
               <Link
-                to={"/contacts"}
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              to={"/contacts"}
+              className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent  md:p-0 md:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Contacts
+              Contacts
               </Link>
-            </li>
+              </li>
+            }
           
             
             <li>
               <button
-                onClick={handleDropdown}
+               
                 className="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
               >
                 {userInfo ?
-                  <h1>{userInfo.name}</h1> :  
-              <p>login</p>
+                  <img src={userInfo.pic}  onClick={handleDropdown} className="w-10 h-10 rounded-full"/> :  
+              <button className="bg-black text-white px-3 py-2 rounded-md">Login</button>
               }
-                <svg
-                  className="w-2.5 h-2.5 ml-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
+          
               </button>
 
+              {userInfo && (
               <div
                 id="dropdownNavbar"
                 className={` ${
@@ -186,7 +174,7 @@ const Header = () => {
                 }  font-normal bg-white divide-y divide-gray-100 rounded-lg shadow  dark:bg-gray-700 dark:divide-gray-600`}
               >
                 <ul
-                  className="py-4 absolute z-10 flex flex-col  justify-center items-center w-full  bg-white  text-sm text-gray-900 dark:text-gray-400"
+                  className="py-4 absolute z-10 flex flex-col  right-1 top-4  justify-center items-center md:min-w-[500px]  w-full border-1 shadow-xl border-black/75 bg-white  text-sm text-gray-900 dark:text-gray-400"
                   aria-labelledby="dropdownLargeButton"
                 >
                   <li>
@@ -199,7 +187,6 @@ const Header = () => {
                   </li>
                   <li>
                    
-              {userInfo ? (
   <button
     type="button"
     onClick={() => {
@@ -209,14 +196,10 @@ const Header = () => {
   >
     Sign Out
   </button>
-) : (
-  <NavLink className='button' to='/login'>
-    Login
-  </NavLink>
-)}
-              </li>
-                </ul>
-              </div>
+  </li>
+  </ul>
+  </div>
+  )  }
             </li>
           </ul>
         </div>

@@ -3,9 +3,18 @@ import MainScreen from "../components/MainScreen";
 import { Link } from "react-router-dom";
 import ContactCard from "../components/ContactCard";
 import axios from 'axios'
-const ListContact = () => {
-  const [users, setUsers] = useState()
+import toast, { Toaster } from "react-hot-toast";
 
+import { useDispatch, useSelector } from "react-redux";
+import { getContacts } from "../features/contact/contactActions";
+import Loading from "../components/Loading";
+const ListContact = () => {
+  // const [users, setUsers] = useState()
+  const dispatch = useDispatch()
+  const { userToken ,userInfo:data } = useSelector((state) => state.auth)
+   
+  const { userInfo, loading, error } = useSelector((state) => state.contact);
+ 
   // const fetchUser =async () => {
   //   const { data } = await axios.get("http://localhost:5000/api/userlists", {
   //     headers: {
@@ -16,13 +25,23 @@ const ListContact = () => {
   //  setUsers(data)
   // }
   
- 
-  // useEffect(() => {
-  //   fetchUser();
-  // },[])
+//  console.log(userInfo)
+  useEffect(() => {
+   
+    dispatch(getContacts(userToken));
+  }, [dispatch])
+if (loading) {
+    return <div><Loading/></div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+  
   return (
     <div>
-      <MainScreen title={"welcome back sammed"}>
+      <MainScreen title={`welcome back ${data.name}`}>
+        
         <Link to="/createcontact" className="bg-black p-2">
           <button
             type="button"
@@ -32,8 +51,9 @@ const ListContact = () => {
           </button>
         </Link>
 
-        <ContactCard users={users} />
+        <ContactCard users={userInfo} />
       </MainScreen>
+      <Toaster/>
     </div>
   );
 };

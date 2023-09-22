@@ -58,5 +58,5 @@ export const loginUser = createAsyncThunk(
  export const logoutUser =(dispatch) => {
   // Remove the user token from local storage and then dispatch the logout action
   localStorage.removeItem('userToken');
-  dispatch(logout());
+
 };

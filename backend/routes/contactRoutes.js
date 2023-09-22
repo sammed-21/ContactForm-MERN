@@ -17,7 +17,7 @@ const router = express.Router()
 //   "country": "USA",
 //   "zipCode": "12345"
 // }
-
+console.log('inside contactroute')
 router.route('/').get(protect,getNotes)
 router.route('/create').post(protect,createContact)
 router.route('/:id').get(getContactById).put(protect,updateContact).delete(protect,deleteContact)

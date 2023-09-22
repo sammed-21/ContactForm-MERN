@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { contacts } from "../assets/data";
 const ContactCard = ({users}) => {
- console.log(users)
+  
   const [expandedUsers, setExpandedUsers] = useState(null);
 
   const toggleExpansion = (userId) => {
@@ -11,14 +11,25 @@ const ContactCard = ({users}) => {
       setExpandedUsers(userId);
     }
   };
- 
+  //  "firstName": "second contact",
+  // "mobile": {
+  //           "countryCode": "+91",
+  //           "number": "1234567891"
+  //       },
+//         "lastName": "dummy contact",
+//         "email": "dummy@example.com",
+//         "address1": "123 Main St",
+//         "address2": "Apt 4B",
+//         "state": "Karnataka",
+//         "country": "India",
+//         "zipCode": "12345",
   return (
     <div className="w-full   rounded-lg">
        {users &&
               users.map((user) => (
-        <div key={user.id} className="mb-4 my-3 shadow-lg  ">
+        <div key={user._id} className="mb-4 my-3 shadow-lg  ">
           <div  
-            onClick={() => toggleExpansion(user.id)}
+            onClick={() => toggleExpansion(user._id)}
             className="flex justify-between items-center transition ease-in-out delay-150 py-5 bg-gray-200 rounded-lg px-3"
           >
             <h2 className="text-xl font-semibold">
@@ -44,13 +55,13 @@ const ContactCard = ({users}) => {
           
             </div>
           </div>
-          {expandedUsers === user.id && (
+          {expandedUsers === user._id && (
             <div className="bg-white transition ease-in-out delay-150  px-3">
               <p className="text-gray-700 mt-2">
                 <strong>Email:</strong> {user.email}
               </p>
               <p className="text-gray-700">
-                <strong>Mobile:</strong> {user.mobile}
+                <strong>Mobile:</strong> {user.mobile.number}
               </p>
               <p className="text-gray-700">
                 <strong>Address 1:</strong> {user.address1}
