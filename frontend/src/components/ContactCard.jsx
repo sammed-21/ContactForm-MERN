@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { contacts } from "../assets/data";
-const ContactCard = ({users}) => {
+const ContactCard = ({users,deleteContacts}) => {
   
   const [expandedUsers, setExpandedUsers] = useState(null);
 
@@ -11,43 +11,34 @@ const ContactCard = ({users}) => {
       setExpandedUsers(userId);
     }
   };
-  //  "firstName": "second contact",
-  // "mobile": {
-  //           "countryCode": "+91",
-  //           "number": "1234567891"
-  //       },
-//         "lastName": "dummy contact",
-//         "email": "dummy@example.com",
-//         "address1": "123 Main St",
-//         "address2": "Apt 4B",
-//         "state": "Karnataka",
-//         "country": "India",
-//         "zipCode": "12345",
+ 
   return (
     <div className="w-full   rounded-lg">
        {users &&
               users.map((user) => (
         <div key={user._id} className="mb-4 my-3 shadow-lg  ">
           <div  
-            onClick={() => toggleExpansion(user._id)}
+           onClick={() => toggleExpansion(user._id)}
             className="flex justify-between items-center transition ease-in-out delay-150 py-5 bg-gray-200 rounded-lg px-3"
           >
-            <h2 className="text-xl font-semibold">
+                    <h2 
+                      className="text-xl cursor-pointer font-semibold">
               {user.firstName} {user.lastName}
             </h2>
             <div className="space-x-2">
               <button
                 className="text-white bg-blue-800 px-1 transition ease-in-out delay-100 hover:bg-blue-400 focus:outline-none"
-                onClick={() => {
+                        onClick={() => {
+                  deleteContacts(user._id)
                   // Handle edit click here
                 }}
               >
                 Edit
               </button>
               <button
-                className="text-white bg-red-800 px-1 transition ease-in-out delay-100 hover:bg-red-400 focus:outline-none"
+                className="text-white  bg-red-800 px-1 transition ease-in-out delay-100 hover:bg-red-400 focus:outline-none"
                 onClick={() => {
-                  // Handle delete click here
+                  deleteContacts(user._id)
                 }}
               >
                 Delete

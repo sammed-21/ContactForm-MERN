@@ -6,7 +6,7 @@ import axios from 'axios'
 import toast, { Toaster } from "react-hot-toast";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getContacts } from "../features/contact/contactActions";
+import { getContacts,deleteContact } from "../features/contact/contactActions";
 import Loading from "../components/Loading";
 const ListContact = () => {
   // const [users, setUsers] = useState()
@@ -15,17 +15,13 @@ const ListContact = () => {
    
   const { userInfo, loading, error } = useSelector((state) => state.contact);
  
-  // const fetchUser =async () => {
-  //   const { data } = await axios.get("http://localhost:5000/api/userlists", {
-  //     headers: {
-  //       Authorization:`Bearer ${}`
-  //     }
-  //   })
-  //   console.log(data)
-  //  setUsers(data)
-  // }
-  
-//  console.log(userInfo)
+  const deleteContacts = (id) => {
+    console.log(id)
+    dispatch(deleteContact({ id, userToken })).then(() => {
+      // After successful deletion, refetch the updated contact list
+      dispatch(getContacts(userToken));
+    });
+  }
   useEffect(() => {
    
     dispatch(getContacts(userToken));
@@ -51,7 +47,7 @@ if (loading) {
           </button>
         </Link>
 
-        <ContactCard users={userInfo} />
+        <ContactCard users={userInfo} deleteContacts={deleteContacts} />
       </MainScreen>
       <Toaster/>
     </div>

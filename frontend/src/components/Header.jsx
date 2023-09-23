@@ -21,7 +21,6 @@ const Header = () => {
     setOpen(!open);
   };
   const handleDropdown = () => {
- 
     setDropDown((prev) => !prev);
   };
 
@@ -160,8 +159,11 @@ const Header = () => {
                 className="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
               >
                 {userInfo ?
-                  <img src={userInfo.pic}  onClick={handleDropdown} className="w-10 h-10 rounded-full"/> :  
-              <button className="bg-black text-white px-3 py-2 rounded-md">Login</button>
+                  <img src={userInfo.pic} onClick={handleDropdown} className="w-10 h-10 rounded-full" /> :  
+                  <div className="flex space-x-1">
+                  <Link to="/login" className="bg-black text-white px-3 py-2 rounded-md">Login</Link>
+                  <Link to="/register" className="bg-black text-white px-3 py-2 rounded-md">sigh up</Link>
+                  </div>
               }
           
               </button>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
- import { getContacts } from "./contactActions";
+ import { getContacts ,deleteContact,createContact} from "./contactActions";
 const userToken = localStorage.getItem('userToken')
   ? localStorage.getItem('userToken')
   : null;
@@ -20,7 +20,7 @@ export const contactSlice = createSlice({
   },
     extraReducers: {
         [getContacts.pending]: (state) => {
-            state.loading = true,
+            state.loading = false,
                 state.error = null
         },
         [getContacts.fulfilled]: (state, { payload }) => {
@@ -33,7 +33,33 @@ export const contactSlice = createSlice({
         [getContacts.rejected]: (state, { payload }) => {
             state.loading = false
             state.error = payload
-        },
+      },
+        [deleteContact.pending]: (state) => {
+        state.loading = false
+        state.error = null
+      },
+      [deleteContact.fulfilled]: (state, {payload}) => {
+        state.loading = true
+        // Remove the deleted contact from the state
+        state.userInfo = state.userInfo.filter((user) => user._id !== payload._id)
+      },
+      [deleteContact.rejected]:(state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+        [createContact.pending]: (state) => {
+        state.loading = true
+        state.error = null
+      },
+      [createContact.fulfilled]: (state, {payload}) => {
+        state.loading = false
+        // Remove the deleted contact from the state
+        state.userInfo =state.userInfo
+      },
+      [createContact.rejected]:(state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      }
     }
 });
 
